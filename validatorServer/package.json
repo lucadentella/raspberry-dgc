@@ -1,0 +1,19 @@
+{
+  "name": "validatorserver",
+  "version": "0.0.1",
+  "description": "Italian Greenpass Validator Server",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luca Dentella",
+  "dependencies": {
+    "dayjs": "^1.10.7",
+    "dcc-utils": "^0.1.0",
+    "jsrsasign": "^10.4.0",
+    "node-cron": "^3.0.0",
+    "node-fetch": "^2.6.2",
+    "timezone": "^1.0.23",
+    "utc": "^0.1.0"
+  }
+}
