@@ -59,7 +59,7 @@ const updateSettings = (async () => {
 
 const main = (async () => {
 
-	//await updateCertificates();
+	await updateCertificates();
 	await updateSettings();
 
 	const server = http.createServer();
@@ -88,10 +88,8 @@ const main = (async () => {
 				return;		 
 			}
 			
-			//console.log(dcc.payload);
-			
 			// check DGC signature
-			/*let signatureVerified = false;
+			let signatureVerified = false;
 			for(let certificate of signerCertificates) {
 							
 				try {
@@ -109,7 +107,7 @@ const main = (async () => {
 				res.end("INVALID: signature");
 				return;					
 			}
-			*/
+			
 			// check DGC content
 			let validate;
 			
