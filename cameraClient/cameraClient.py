@@ -21,16 +21,17 @@ else:
 
 # Initialise Raspberry Pi camera
 camera = PiCamera()
-camera.resolution = RESOLUTION
+camera.resolution = (640, 480)
 #camera.framerate = 10
 camera.vflip = True
 #camera.hflip = True
 #camera.color_effects = (128, 128)
+
 # set up stream buffer
 rawCapture = PiRGBArray(camera, size=RESOLUTION)
+
 # allow camera to warm up
 time.sleep(0.1)
-print("PiCamera ready")
 
 # Initialise OpenCV window
 #if FULLSCREEN:
@@ -39,11 +40,7 @@ print("PiCamera ready")
 #else:
 cv2.namedWindow("#iothack15")
 
-print("OpenCV version: %s" % (cv2.__version__))
-print("Press q to exit ...")
-
-# scanner = zbarlight.ImageScanner()
-# scanner.parse_config('enable')
+print("cameraClient ready")
 
 # Capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -59,12 +56,10 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # create a reader
     codes = zbarlight.scan_codes(['qrcode'], pil)
     if codes is not None:
-        #print('QR codes: %s' % codes)
-        #dgc_encoded = requests.utils.quote(codes[0])
+
         payload = {'dgc': codes[0]}
         print(payload)
         r = requests.get('http://localhost:3000/', params=payload)
-        #print(r.url)
         print('Return code: ', r.status_code, ', Text: ', r.text)
 
     # show the frame
@@ -72,11 +67,6 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     # clear stream for next frame
     rawCapture.truncate(0)
-
-    # Wait for the magic key
-    keypress = cv2.waitKey(1) & 0xFF
-    if keypress == ord('q'):
-    	break
 
 # When everything is done, release the capture
 camera.close()
