@@ -53,7 +53,6 @@ for frame in camera.capture_continuous(rawCapture, format = "bgr", use_video_por
     if codes is not None:
 
         payload = {'dgc': codes[0]}
-        print(payload)
         r = requests.get('http://localhost:3000/', params=payload)
         print('Return code: ', r.status_code, ', Text: ', r.text)
         
