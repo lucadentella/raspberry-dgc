@@ -19,7 +19,7 @@ GPIO.output(GREEN_LED, GPIO.LOW)
 print("GPIO configured");
 
 # Initialise Raspberry Pi camera
-RESOLUTION = (480, 270)
+RESOLUTION = (480, 272)
 camera = PiCamera()
 camera.resolution = RESOLUTION
 
@@ -58,7 +58,7 @@ for frame in camera.capture_continuous(rawCapture, format = "bgr", use_video_por
         
         # turn on the LEDs for 2 seconds
         if r.status_code == 200: pin = GREEN_LED
-        else: pin = LED_LED
+        else: pin = RED_LED
         GPIO.output(pin, GPIO.HIGH)
         time.sleep(2)
         GPIO.output(pin, GPIO.LOW)
