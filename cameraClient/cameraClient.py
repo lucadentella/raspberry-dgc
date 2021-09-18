@@ -17,11 +17,12 @@ GPIO.output(3, GPIO.LOW)
 print("GPIO configured");
 
 # Initialise Raspberry Pi camera
+RESOLUTION = (480, 270)
 camera = PiCamera()
-camera.resolution = (640, 480)
+camera.resolution = RESOLUTION
 
 # set up stream buffer
-rawCapture = PiRGBArray(camera, size=RESOLUTION)
+rawCapture = PiRGBArray(camera, size = RESOLUTION)
 
 # allow camera to warm up
 time.sleep(0.1)
