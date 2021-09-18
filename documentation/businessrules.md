@@ -32,7 +32,10 @@ Depending on the format used by the single European country, it may therefore be
 
  - change the URL
  - change the name of the parameters
+
+## Rules API :information_source:
  
 Some countries publish the **rules**, not the parameters.
+
 The dcc-utils library does support the rule format defined by the EU, check [the example](https://github.com/ministero-salute/dcc-utils/blob/master/examples/check_rules_from_api.js) provided. 
 
