@@ -9,11 +9,13 @@ import requests
 from PIL import Image
 
 # Initialise GPIO
+RED_LED = 2
+GREEN_LED = 3
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(2, GPIO.OUT)
-GPIO.setup(3, GPIO.OUT)
-GPIO.output(2, GPIO.LOW)
-GPIO.output(3, GPIO.LOW)
+GPIO.setup(RED_LED, GPIO.OUT)
+GPIO.setup(GREEN_LED, GPIO.OUT)
+GPIO.output(RED_LED, GPIO.LOW)
+GPIO.output(GREEN_LED, GPIO.LOW)
 print("GPIO configured");
 
 # Initialise Raspberry Pi camera
@@ -56,8 +58,8 @@ for frame in camera.capture_continuous(rawCapture, format = "bgr", use_video_por
         print('Return code: ', r.status_code, ', Text: ', r.text)
         
         # turn on the LEDs for 2 seconds
-        if r.status_code == 200: pin = 2
-        else: pin = 3
+        if r.status_code == 200: pin = GREEN_LED
+        else: pin = LED_LED
         GPIO.output(pin, GPIO.HIGH)
         time.sleep(2)
         GPIO.output(pin, GPIO.LOW)
