@@ -31,7 +31,7 @@ time.sleep(0.1)
 print("cameraClient ready")
 
 # Initialise OpenCV window
-cv2.namedWindow("raspberry-dgc")
+#cv2.namedWindow("raspberry-dgc")
 print("OpenCV window ready")
 
 # Capture frames from the camera
@@ -64,7 +64,7 @@ for frame in camera.capture_continuous(rawCapture, format = "bgr", use_video_por
         GPIO.output(pin, GPIO.LOW)
 
     # show the frame
-    cv2.imshow("raspberry-dgc", output)
+    #cv2.imshow("raspberry-dgc", output)
 
     # clear stream for next frame
     rawCapture.truncate(0)
