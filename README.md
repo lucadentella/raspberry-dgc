@@ -31,5 +31,5 @@ Raspberry appliance to verify EU [Digital Green Certificates](https://ec.europa.
 
 ## Tutorials :tv:
 
- - [Tutorial in **English**](https://youtu.be/aaa) (Youtube)
- - [Tutorial in **Italiano**](https://youtu.be/bbb) (Youtube)
+ - [Tutorial in **English**](https://youtu.be/CRlhOMs_VCc) (Youtube)
+ - [Tutorial in **Italiano**](https://youtu.be/UlonFxFJXEA) (Youtube)
