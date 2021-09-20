@@ -121,7 +121,7 @@ const main = (async () => {
 			if(dcc.payload.r) validate = recovery.validateRecovery(settings, dcc);
 						
 			if(validate.result) res.statusCode = 200;
-			else res.StatusCode = 400;
+			else res.statusCode = 400;
 			res.setHeader('Content-Type', 'text/plain');
 			res.end(validate.message);				
 		}
