@@ -12,9 +12,9 @@
 
 **2. Install Python libraries** 
 
-	sudo apt-get install python3-opencv
+	sudo apt-get install python3-opencv libzbar0 libzbar-dev
 	sudo apt-get install libqt4-test python3-sip python3-pyqt5 libqtgui4 libjasper-dev libatlas-base-dev
-	pip3 install opencv-contrib-python
+	pip3 install opencv-contrib-python zbarlight
 
 **3. Clone the Github repository**
 
