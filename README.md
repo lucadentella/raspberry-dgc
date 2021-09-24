@@ -28,6 +28,7 @@ Raspberry appliance to verify EU [Digital Green Certificates](https://ec.europa.
 
  - [How to install](https://github.com/lucadentella/raspberry-dgc/tree/main/documentation/installation.md)
  - [How to change the business rules](https://github.com/lucadentella/raspberry-dgc/tree/main/documentation/businessrules.md)
+ - [Frequently Asked Questions (FAQ)](https://github.com/lucadentella/raspberry-dgc/tree/main/documentation/faq.md)
 
 ## Tutorials :tv:
 
