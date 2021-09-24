@@ -36,6 +36,7 @@ const validateVaccination = function(settings, dcc) {
 			var startDate = dayjs(dateOfVaccination).add(parseInt(getVaccineStartDayComplete(settings, vaccineType).value), 'days');
 			var endDate = dayjs(dateOfVaccination).add(parseInt(getVaccineEndDayComplete(settings, vaccineType).value), 'days');
 			if(startDate.isAfter(now)) return {result: false, message: "Not valid yet"};
+			if(now.isAfter(endDate)) return {result: false, message: "Expired"};
 			return {result: true, message: "Valid"};
 		}
 		
