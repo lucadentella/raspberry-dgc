@@ -28,3 +28,14 @@ Yes, you can enable the video window uncommenting the following lines (in `camer
     #cv2.imshow("raspberry-dgc", output)
 	
 If you run cameraClient remotely (SSH connection) you need an **x-server** to view the window. My suggestion, for Windows, is [MobaXterm](https://mobaxterm.mobatek.net/).
+
+## Server
+**How can I get the holder details (surname, forename, date of birth)?**
+
+In `app.js` set this constant to **true**:
+
+    const ADD_HOLDER_DETAILS = true;
+	
+When true, validatorServer returns holder details in the response:
+
+![](https://github.com/lucadentella/raspberry-dgc/raw/main/images/holder-details.png)

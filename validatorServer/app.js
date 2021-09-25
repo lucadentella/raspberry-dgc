@@ -13,6 +13,9 @@ const port = 3000;
 const urlUpdate = "https://get.dgc.gov.it/v1/dgc/signercertificate/update";
 const urlStatus = "https://get.dgc.gov.it/v1/dgc/signercertificate/status";
 const urlSettings = "https://get.dgc.gov.it/v1/dgc/settings";
+
+const ADD_HOLDER_DETAILS = false;
+
 let validKids;
 let signerCertificates;
 let settings;
@@ -119,11 +122,21 @@ const main = (async () => {
 			
 			// 3. recovery
 			if(dcc.payload.r) validate = recovery.validateRecovery(settings, dcc);
+			
+			// Add holder details if required
+			let response;
+			if(ADD_HOLDER_DETAILS) {
+				
+				let surname = dcc.payload.nam.fn;
+				let forename = dcc.payload.nam.gn;
+				let dob = dcc.payload.dob;
+				response = validate.message + " - " + surname + " " + forename + " (" + dob + ")";
+			} else response = validate.message;
 						
 			if(validate.result) res.statusCode = 200;
 			else res.statusCode = 400;
 			res.setHeader('Content-Type', 'text/plain');
-			res.end(validate.message);				
+			res.end(response);				
 		}
 	});
 
