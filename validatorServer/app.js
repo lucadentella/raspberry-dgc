@@ -68,6 +68,9 @@ const main = (async () => {
 	const server = http.createServer();
 	server.on('request', async (req, res) => {
 		
+		// set CORS header to allow browser clients
+		res.setHeader('Access-Control-Allow-Origin', '*');
+		
 		const dgc = url.parse(req.url, true).query.dgc;
 		
 		if(dgc === undefined) {
