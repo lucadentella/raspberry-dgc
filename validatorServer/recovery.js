@@ -7,8 +7,6 @@ const VACCINE_END_DAY_COMPLETE = "vaccine_end_day_complete";
 
 const validateRecovery = function(settings, dcc) {
 	
-	console.log("Recovery");
-	
     var obj = dcc.payload.r[dcc.payload.r.length -1];
     var certificateValidFrom = obj.df;
     var certificateValidUntil = obj.du;
