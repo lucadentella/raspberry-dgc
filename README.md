@@ -15,6 +15,7 @@ Raspberry appliance to verify EU [Digital Green Certificates](https://ec.europa.
  - Has a **modular** architecture (client/server)
  - Can run on **any** recent Raspberry Pi boards
  - Can **display** the video captured by the camera
+ - **NEW** A browserClient is also included
 
 ![](https://github.com/lucadentella/raspberry-dgc/raw/main/images/architecture.png)
 

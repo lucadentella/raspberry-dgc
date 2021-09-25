@@ -39,3 +39,11 @@ In `app.js` set this constant to **true**:
 When true, validatorServer returns holder details in the response:
 
 ![](https://github.com/lucadentella/raspberry-dgc/raw/main/images/holder-details.png)
+
+
+## Client
+**Is it possible to develop a browser-based client**
+
+Yes! An example - based on the [Html5-QRCode library](https://github.com/mebjas/html5-qrcode) - is included in the project:
+
+![](https://github.com/lucadentella/raspberry-dgc/raw/main/images/browserclient.png)

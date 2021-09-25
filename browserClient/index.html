@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <script src="./jquery-3.6.0.min.js"></script>
+  <script src="./html5-qrcode.min.js"></script>
+  <title>DGC browserClient</title>
+ </head>
+ <body>
+ <style>
+#reader {
+    width: 700px;
+}
+.empty {
+    display: block;
+    width: 100%;
+    height: 20px;
+}
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+	font-size: 30px;
+	text-align: center;
+}
+.alert-error {
+    color: #bf0000;
+    background-color: #ff9D89;
+    border-color: #ff2B00;
+}
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+</style>
+  <div class="container">
+   <div class="row">
+    <div class="col-md-12" style="text-align: center;margin-bottom: 20px;">
+     <div id="reader" style="display: inline-block;"></div>
+     <div class="empty"></div>
+     <div id="scanned-result"></div>
+   </div>
+  </div>
+ </div>
+ <div id="result">
+</div>
+
+<script>
+
+// validatorServer URL
+const validatorServerURL = "http://raspberrypi.local:3000/";
+
+// qrcode found  
+function onScanSuccess(decodedText, decodedResult) {
+
+	console.log("qrcode found: " + decodedText);
+	
+	// make a call to validatorServer
+	$.ajax({
+		url: validatorServerURL,
+		type: "get",
+		data: {"dgc" : decodedText},
+		
+		// server response
+		complete: function(jqXHR, textStatus) {
+		
+			// VALID
+			if(jqXHR.status == 200) $("#result").attr("class", "alert alert-success");
+			
+			// INVALID
+			else $("#result").attr("class", "alert alert-error");
+			
+			// display response
+			$('#result').html(jqXHR.responseText);
+		
+			// reset after 3 seconds
+			setTimeout(function() {
+				$("#result").attr("class", "alert");
+				$('#result').html("");
+			}, 3000);
+		}
+	});
+}
+
+function onScanFailure(error) {}
+
+// init library
+let html5QrcodeScanner = new Html5QrcodeScanner(
+	"reader", 
+	{ fps: 10, 
+	qrbox: 400 }, 
+	/* verbose= */ false);
+html5QrcodeScanner.render(onScanSuccess, onScanFailure);  
+
+</script>
+ </body>
+</html>
