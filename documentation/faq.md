@@ -40,6 +40,23 @@ When true, validatorServer returns holder details in the response:
 
 ![](https://github.com/lucadentella/raspberry-dgc/raw/main/images/holder-details.png)
 
+**How can I use test DGCs?**
+
+This Github repository ([dgc-testdata](https://github.com/eu-digital-green-certificates/dgc-testdata)) collects test data of different member states. 
+
+Each DGC is signed with a test key, therefore signature validation **fails**.
+
+In addition to each DGC (*PREFIX*), the public key to validate its signature is also provided (*CERTIFICATE*):
+
+![](https://github.com/lucadentella/raspberry-dgc/raw/main/images/test-dgc.png)
+
+URL-encode the DGC content (*PREFIX*) with an [online tool](https://www.urlencoder.org/).
+
+Add the certificate to the list of valid certificates as follows:
+
+    signerCertificates.push("-----BEGIN CERTIFICATE-----\n" + certificate + "-----END CERTIFICATE-----");
+
+You should be able to validate the test DGC calling validatorServer: http://validatorServerIP:3000/?dgc=<urlencodedDGC>
 
 ## Client
 **Is it possible to develop a browser-based client**
