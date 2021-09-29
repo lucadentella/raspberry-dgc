@@ -28,26 +28,35 @@ const updateCertificates = (async () => {
 	response = await fetch(urlStatus);
 	validKids = await response.json();
 	
-	console.log("List of valid\ KIDs downloaded, " + validKids.length);
+	console.log("Downloaded " + validKids.length " valid KIDs" );
 	
 	// get the list of certificates
 	signerCertificates = [];
+	certificateDownloadedCount = 0;
+	certificateAddedCount = 0;					  
 	let headers = {};
 	do {
+		
 		response = await fetch(urlUpdate, {
-			headers,
+			headers,	   
 		})
+		
 		headers = {'X-RESUME-TOKEN' : response.headers.get('X-RESUME-TOKEN')};
 		const certificateKid = response.headers.get('X-KID');
-		if(validKids.includes(certificateKid)) {
-			const certificate = await response.text();
-			signerCertificates.push("-----BEGIN CERTIFICATE-----\n" + certificate + "-----END CERTIFICATE-----");
-		}
-		else {			
-			console.log("Certificate " + certificateKid + " is NOT valid");
+		const certificate = await response.text();
+		
+		// a certificate has been downloaded
+		if(certificate) {
+			
+			certificateDownloadedCount++;
+			
+			// the certificate is valid, add it to the list
+			if(validKids.includes(certificateKid)) {
+				certificateAddedCount++;
+				signerCertificates.push("-----BEGIN CERTIFICATE-----\n" + certificate + "-----END CERTIFICATE-----");
 		}
 	} while (response.status === 200);
-	console.log("Done");
+	console.log("Downloaded " + certificateDownloadCount + " certificates, added " + certificateAddCount);
 });
 
 const updateSettings = (async () => {
