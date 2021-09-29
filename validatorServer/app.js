@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 const cron = require('node-cron');
 const http = require('http');
+const https = require('https');
 const url = require('url');
 const { DCC } = require('dcc-utils');
 const rs = require('jsrsasign');
@@ -35,10 +36,12 @@ const updateCertificates = (async () => {
 	certificateDownloadedCount = 0;
 	certificateAddedCount = 0;					  
 	let headers = {};
+	const httpsAgent = new https.Agent({ keepAlive: true });
 	do {
 		
 		response = await fetch(urlUpdate, {
-			headers,	   
+			headers,
+			httpsAgent
 		})
 		
 		headers = {'X-RESUME-TOKEN' : response.headers.get('X-RESUME-TOKEN')};
@@ -57,7 +60,7 @@ const updateCertificates = (async () => {
 			}
 		}
 	} while (response.status === 200);
-	console.log("Downloaded " + certificateDownloadCount + " certificates, added " + certificateAddCount);
+	console.log("Downloaded " + certificateDownloadedCount + " certificates, added " + certificateAddedCount);
 });
 
 const updateSettings = (async () => {
