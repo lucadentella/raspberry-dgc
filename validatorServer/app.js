@@ -29,7 +29,7 @@ const updateCertificates = (async () => {
 	response = await fetch(urlStatus);
 	validKids = await response.json();
 	
-	console.log("Downloaded " + validKids.length + " valid KIDs" );
+	console.log(validKids.length + " valid KIDs downloaded" );
 	
 	// get the list of certificates
 	signerCertificates = [];
@@ -60,7 +60,7 @@ const updateCertificates = (async () => {
 			}
 		}
 	} while (response.status === 200);
-	console.log("Downloaded " + certificateDownloadedCount + " certificates, added " + certificateAddedCount);
+	console.log(certificateDownloadedCount + " certificates downloaded, " + certificateAddedCount + " added");
 });
 
 const updateSettings = (async () => {
