@@ -54,6 +54,7 @@ const updateCertificates = (async () => {
 			if(validKids.includes(certificateKid)) {
 				certificateAddedCount++;
 				signerCertificates.push("-----BEGIN CERTIFICATE-----\n" + certificate + "-----END CERTIFICATE-----");
+			}
 		}
 	} while (response.status === 200);
 	console.log("Downloaded " + certificateDownloadCount + " certificates, added " + certificateAddCount);
