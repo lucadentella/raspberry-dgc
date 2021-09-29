@@ -112,7 +112,27 @@ const main = (async () => {
 			for(let certificate of signerCertificates) {
 							
 				try {
-					const verifier = rs.KEYUTIL.getKey(certificate).getPublicKeyXYHex();
+					
+					// get key and jwk from certificate
+					key = rs.KEYUTIL.getKey(certificate);
+					jwk = rs.KEYUTIL.getJWKFromKey(key);
+					
+					// EC key, the library expects x and y coordinates as hex strings
+					if(jwk.kty == 'EC') {
+						verifier = {
+							x: Buffer.from(jwk.x, 'base64').toString('hex'),
+							y: Buffer.from(jwk.y, 'base64').toString('hex')
+						};
+					}
+					
+					// RSA key, the library expects modulus and exponent as Buffers
+					else if(jwk.kty == 'RSA') {
+						verifier = {
+							n: Buffer.from(jwk.n, 'base64'),
+							e: Buffer.from(jwk.e, 'base64')
+						};
+					}
+					
 					signatureVerified = await dcc.checkSignature(verifier);
 				} catch {}
 				if(signatureVerified) break;
