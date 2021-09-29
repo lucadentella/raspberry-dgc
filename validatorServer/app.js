@@ -28,7 +28,7 @@ const updateCertificates = (async () => {
 	response = await fetch(urlStatus);
 	validKids = await response.json();
 	
-	console.log("Downloaded " + validKids.length " valid KIDs" );
+	console.log("Downloaded " + validKids.length + " valid KIDs" );
 	
 	// get the list of certificates
 	signerCertificates = [];
