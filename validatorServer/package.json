@@ -9,7 +9,7 @@
   "author": "Luca Dentella",
   "dependencies": {
     "dayjs": "^1.10.7",
-    "dcc-utils": "^0.1.0",
+    "dcc-utils": "^0.3.0",
     "jsrsasign": "^10.4.0",
     "node-cron": "^3.0.0",
     "node-fetch": "^2.6.2",
