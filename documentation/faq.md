@@ -61,6 +61,8 @@ You should be able to validate the test DGC calling validatorServer: http://vali
 ## Client
 **Is it possible to develop a browser-based client**
 
-Yes! An example - based on the [Html5-QRCode library](https://github.com/mebjas/html5-qrcode) - is included in the project:
+Yes! An example - based on the [Html5-QRCode library](https://github.com/mebjas/html5-qrcode) - is included in the project.
+
+See [How to use the browserClient with Raspberry Pi](https://github.com/lucadentella/raspberry-dgc/tree/main/documentation/browserclient.md) for detailed instructions.
 
 ![](https://github.com/lucadentella/raspberry-dgc/raw/main/images/browserclient.png)
