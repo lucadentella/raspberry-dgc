@@ -6,6 +6,8 @@ The browserClient can scan a qrcode, send the base45 string to validatorServer a
 
 You can serve the browserClient from the same Raspberry Pi that runs validatorServer: this is the easiest way to use it but not the only one!
 
+Remember that, to be able to access the webcam, the client must be served with **HTTPS** protocol. This requires that also validatorServer is listening with the same protocol. Here I'm using the *proxy_pass* feature of nginx for this.
+
 **1. Install an HTTP server**
 
     sudo apt-get install nginx-light -y
@@ -26,7 +28,7 @@ You can serve the browserClient from the same Raspberry Pi that runs validatorSe
 
 ![](https://github.com/lucadentella/raspberry-dgc/raw/main/images/nginx-proxy.png)
 
-** 1d. Restart nginx**
+**1d. Restart nginx**
 
 	sudo systemctl restart nginx.service
 
