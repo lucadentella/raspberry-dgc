@@ -16,13 +16,18 @@ const NOT_DETECTED = "260415000";
 const TYPE_RAPID = "LP217198-3"; 	// RAT, Rapid Antigen Test
 const TYPE_MOLECULAR = "LP6464-4";	// NAAT, Nucleic Acid Amplification Test
 
-const validateTest = function(settings, dcc) {
+const validateTest = function(settings, dcc, blacklist) {
 	
     var obj = dcc.payload.t[dcc.payload.t.length -1];
 	var testType = obj.tt;
     var testResult = obj.tr;
 	var dateTimeOfSampleCollection = obj.sc;
+	var certificateIdentifier = obj.ci;
     var now = dayjs();
+
+	// Check if certificate identifier is defined and not in blacklist
+	if(certificateIdentifier == "" || certificateIdentifier === undefined) return {result: false, message: "Certificate Identifier not defined"};
+	if(blacklist.includes(certificateIdentifier)) return {result: false, message: "Certificate in blacklist"};
     
 	// if result is Detected, green pass is not valid
 	if(testResult == DETECTED) return {result: false, message: "Test result is Detected" };

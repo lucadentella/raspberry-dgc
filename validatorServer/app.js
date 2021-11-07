@@ -15,11 +15,14 @@ const urlUpdate = "https://get.dgc.gov.it/v1/dgc/signercertificate/update";
 const urlStatus = "https://get.dgc.gov.it/v1/dgc/signercertificate/status";
 const urlSettings = "https://get.dgc.gov.it/v1/dgc/settings";
 
+const BLACK_LIST_UVCI = "black_list_uvci";
+
 const ADD_HOLDER_DETAILS = false;
 
 let validKids;
 let signerCertificates;
 let settings;
+let blacklist;
 
 const updateCertificates = (async () => {
 
@@ -73,10 +76,26 @@ const updateSettings = (async () => {
 	console.log("Done");
 });
 
+const updateBlacklist = (async () => {
+
+	console.log("Updating UVCI blacklist...");
+	
+	// get the blacklist string from settings JSON
+    const jsonBlacklist = settings.find(it => {
+        return it.name == BLACK_LIST_UVCI && it.type == BLACK_LIST_UVCI
+    }).value;
+	
+	// split the elements, removing empty ones and spaces
+	blacklist = jsonBlacklist.split(";").filter(i => i).map(item => item.trim());;
+	
+	console.log(blacklist.length + " CIs in blacklist");
+});
+
 const main = (async () => {
 
 	await updateCertificates();
 	await updateSettings();
+	await updateBlacklist(settings);
 
 	const server = http.createServer();
 	server.on('request', async (req, res) => {
@@ -151,13 +170,13 @@ const main = (async () => {
 			let validate;
 			
 			// 1. vaccination
-			if(dcc.payload.v) validate = vaccination.validateVaccination(settings, dcc);
+			if(dcc.payload.v) validate = vaccination.validateVaccination(settings, dcc, blacklist);
 			
 			// 2. test
-			if(dcc.payload.t) validate = test.validateTest(settings, dcc);
+			if(dcc.payload.t) validate = test.validateTest(settings, dcc, blacklist);
 			
 			// 3. recovery
-			if(dcc.payload.r) validate = recovery.validateRecovery(settings, dcc);
+			if(dcc.payload.r) validate = recovery.validateRecovery(settings, dcc, blacklist);
 			
 			// Add holder details if required
 			let response;

@@ -5,14 +5,19 @@ const VACCINE_END_DAY_NOT_COMPLETE = "vaccine_end_day_not_complete";
 const VACCINE_START_DAY_COMPLETE = "vaccine_start_day_complete";
 const VACCINE_END_DAY_COMPLETE = "vaccine_end_day_complete";
 
-const validateVaccination = function(settings, dcc) {
+const validateVaccination = function(settings, dcc, blacklist) {
 	
     var obj = dcc.payload.v[dcc.payload.v.length -1];
     var vaccineType = obj.mp;
     var doseNumber = obj.dn;
     var dateOfVaccination = obj.dt;
     var totalSeriesOfDoses = obj.sd;
+	var certificateIdentifier = obj.ci;
     var now = dayjs();
+	
+	// Check if certificate identifier is defined and not in blacklist
+	if(certificateIdentifier == "" || certificateIdentifier === undefined) return {result: false, message: "Certificate Identifier not defined"};
+	if(blacklist.includes(certificateIdentifier)) return {result: false, message: "Certificate in blacklist"};
 	
 	// Check if vaccine is present in setting list
     var vaccineEndDayComplete = getVaccineEndDayComplete(settings, vaccineType);
