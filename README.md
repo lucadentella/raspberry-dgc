@@ -7,6 +7,10 @@ Raspberry appliance to verify EU [Digital Green Certificates](https://ec.europa.
 
 ![](https://img.shields.io/badge/license-CC--BY--NC--SA-green)
 
+## What's new :tada:
+
+ - 07/11/2021, check italian UVCI blacklist
+
 ## Features :trophy:
 
  - Performs a **complete** validation (signature and business rules)
@@ -15,7 +19,7 @@ Raspberry appliance to verify EU [Digital Green Certificates](https://ec.europa.
  - Has a **modular** architecture (client/server)
  - Can run on **any** recent Raspberry Pi boards
  - Can **display** the video captured by the camera
- - **NEW** A browserClient is also included
+ - A browser-based client is also included
 
 ![](https://github.com/lucadentella/raspberry-dgc/raw/main/images/architecture.png)
 
