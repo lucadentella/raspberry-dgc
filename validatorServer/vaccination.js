@@ -13,6 +13,7 @@ const validateVaccination = function(settings, dcc, blacklist) {
     var dateOfVaccination = obj.dt;
     var totalSeriesOfDoses = obj.sd;
 	var certificateIdentifier = obj.ci;
+	var countryOfVaccination = obj.co;
     var now = dayjs();
 	
 	// Check if certificate identifier is defined and not in blacklist
@@ -22,6 +23,9 @@ const validateVaccination = function(settings, dcc, blacklist) {
 	// Check if vaccine is present in setting list
     var vaccineEndDayComplete = getVaccineEndDayComplete(settings, vaccineType);
 	if(vaccineEndDayComplete === null) return {result: false, message: "Vaccine settings not found" };
+	
+	// Check if Sputnik-V was administered in San Marino
+	if(vaccineType == "Sputnik-V" && countryOfVaccination != "SM") return {result: false, message: "Not valid" };
 
 	try {
 		
