@@ -26,15 +26,16 @@ let blacklist;
 
 const updateCertificates = (async () => {
 
-	console.log("Updating signer certificates...");
+	process.stdout.write("Updating list of valid KIDs... ");
 
 	// get the list of valid KIDs
 	response = await fetch(urlStatus);
 	validKids = await response.json();
 	
-	console.log(validKids.length + " valid KIDs downloaded" );
+	process.stdout.write(validKids.length + " valid KIDs added\n");
 	
 	// get the list of certificates
+	process.stdout.write("Downloading certificates... ");
 	signerCertificates = [];
 	certificateDownloadedCount = 0;
 	certificateAddedCount = 0;					  
@@ -63,22 +64,22 @@ const updateCertificates = (async () => {
 			}
 		}
 	} while (response.status === 200);
-	console.log(certificateDownloadedCount + " certificates downloaded, " + certificateAddedCount + " added");
+	process.stdout.write(certificateDownloadedCount + " certificates downloaded, " + certificateAddedCount + " added\n");
 });
 
 const updateSettings = (async () => {
 
-	console.log("Updating settings...");
+	process.stdout.write("Updating settings... ");
 
 	response = await fetch(urlSettings);
 	settings = await response.json();
 	
-	console.log("Done");
+	process.stdout.write("done\n");
 });
 
 const updateBlacklist = (async () => {
 
-	console.log("Updating UVCI blacklist...");
+	process.stdout.write("Updating UVCI blacklist... ");
 	
 	// get the blacklist string from settings JSON
     const jsonBlacklist = settings.find(it => {
@@ -88,10 +89,12 @@ const updateBlacklist = (async () => {
 	// split the elements, removing empty ones and spaces
 	blacklist = jsonBlacklist.split(";").filter(i => i).map(item => item.trim());;
 	
-	console.log(blacklist.length + " CIs in blacklist");
+	process.stdout.write(blacklist.length + " CIs added\n");
 });
 
 const main = (async () => {
+
+	process.stdout.write("validatorServer starting...\n\n");
 
 	await updateCertificates();
 	await updateSettings();
@@ -196,7 +199,9 @@ const main = (async () => {
 	});
 
 	server.listen(port, () => {
-	  console.log("validatorServer running");
+	  process.stdout.write("\nvalidatorServer ready for requests, ");
+	  if(ADD_HOLDER_DETAILS) process.stdout.write("ADD HOLDER DETAILS enabled\n\n");
+	  else process.stdout.write("ADD HOLDER DETAILS disabled\n\n");
 	});
 });
 

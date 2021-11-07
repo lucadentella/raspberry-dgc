@@ -9,7 +9,7 @@ Raspberry appliance to verify EU [Digital Green Certificates](https://ec.europa.
 
 ## What's new :tada:
 
- - 07/11/2021, check italian UVCI blacklist
+ - 07/11/2021, check italian **UVCI blacklist**  
 
 ## Features :trophy:
 
