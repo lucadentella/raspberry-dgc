@@ -3,12 +3,20 @@ const {Certificate} = require('verificac19-sdk');
 const {Validator} = require('verificac19-sdk');
 const http = require('http');
 const url = require('url');
+const cron = require('node-cron');
 
 const version = "1.0.0";
 const port = 3000;
 
 const ADD_HOLDER_DETAILS = true;
 const ADD_DETAILED_MESSAGE = true;
+
+const update = (async () => {
+
+	process.stdout.write("Updating keys, settings and blacklist...");
+	await Service.updateAll();
+	process.stdout.write(" done!\n");
+});
 
 const main = (async () => {
 
@@ -21,9 +29,14 @@ const main = (async () => {
 	if(ADD_DETAILED_MESSAGE) process.stdout.write(" enabled\n");
 	else process.stdout.write(" disabled\n");
 	
-	process.stdout.write("Updating keys, settings and blacklist...");
-	await Service.updateAll();
-	process.stdout.write(" done!\n");
+	// initial update
+	await update();
+	
+	// schedule periodic updates
+	cron.schedule('0 * * * *', async () => {
+		await update();
+	});
+	process.stdout.write("Automatic update scheduled\n");
 
 	const server = http.createServer();
 	server.on('request', async (req, res) => {
