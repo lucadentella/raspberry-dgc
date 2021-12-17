@@ -1,6 +1,6 @@
 {
   "name": "validatorserver",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Italian Greenpass Validator Server",
   "main": "app.js",
   "scripts": {
@@ -8,12 +8,6 @@
   },
   "author": "Luca Dentella",
   "dependencies": {
-    "dayjs": "^1.10.7",
-    "dcc-utils": "^0.3.0",
-    "jsrsasign": "^10.4.0",
-    "node-cron": "^3.0.0",
-    "node-fetch": "^2.6.2",
-    "timezone": "^1.0.23",
-    "utc": "^0.1.0"
+    "verificac19-sdk": ">=0.5.1"
   }
 }
