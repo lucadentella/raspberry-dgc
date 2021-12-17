@@ -33,7 +33,12 @@ const main = (async () => {
 		// set CORS header to allow browser clients
 		res.setHeader('Access-Control-Allow-Origin', '*');
 		
+		// get DGC string from URL
 		const dgc = url.parse(req.url, true).query.dgc;
+		
+		// get (optional) scanMode from URL
+		const scanMode = url.parse(req.url, true).query.scanMode;
+		if(scanMode == "2G") process.stdout.write("(SuperDGC) ");
 		
 		if(dgc === undefined) {
 			res.statusCode = 400;
@@ -58,7 +63,9 @@ const main = (async () => {
 			}
 
 			// validate DGC
-			const validationResult = await Validator.validate(dcc);
+			let validationResult;
+			if(scanMode == "2G") validationResult = await Validator.validate(dcc, Validator.mode.SUPER_DGP); 
+			else validationResult = await Validator.validate(dcc); 
 			
 			// add detailed message if required
 			let result = validationResult.code;
