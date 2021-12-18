@@ -2,40 +2,20 @@
 
 The validatorServer included in this project applies **italian** business rules.
 
-Depending on the content of the green code, 3 checks are performed (in [app.js](https://github.com/lucadentella/raspberry-dgc/tree/main/validatorServer/app.js)):
+To make this project compliant with italian law, the [Official SDK](https://github.com/italia/verificac19-sdk) is now used.
 
-    // 1. vaccination
-    if(dcc.payload.v) validate = vaccination.validateVaccination(settings, dcc);
-    
-    // 2. test
-    if(dcc.payload.t) validate = test.validateTest(settings, dcc);
-    
-    // 3. recovery
-    if(dcc.payload.r) validate = recovery.validateRecovery(settings, dcc);
+Validation is performed by SDK, using the `Validator` object:
+
+    let validationResult;
+    if(scanMode == "2G") validationResult = await Validator.validate(dcc, Validator.mode.SUPER_DGP); 
+    else validationResult = await Validator.validate(dcc); 
 	
-The *validate* functions are defined in specific js files, included in the main program:
-
-    const vaccination = require("./vaccination.js")
-    const test = require("./test.js")
-    const recovery = require("./recovery.js")
-	
-The parameters used to apply the business rules are downloaded from the italian Ministry of Health website in JSON format:
-
-	const urlSettings = "https://get.dgc.gov.it/v1/dgc/settings";
-	
-The name of each parameter is defined as constant:
-
-	const VACCINE_START_DAY_NOT_COMPLETE = "vaccine_start_day_not_complete";
-	const VACCINE_END_DAY_NOT_COMPLETE = "vaccine_end_day_not_complete";
-	
-Depending on the format used by the single European country, it may therefore be necessary to:
-
- - change the URL
- - change the name of the parameters
+If you want to change the server behavior, you have to replace the code with your country's specific rules.
 
 ## Rules API :information_source:
  
 Some countries publish the **rules**, not the parameters.
 
-The dcc-utils library does support the rule format defined by the EU, check [the example](https://github.com/ministero-salute/dcc-utils/blob/master/examples/check_rules_from_api.js) provided. 
+The Italian SDK is based on [dcc-utils] library, that is a more generic library to decode and validate DGCs.
 
+The dcc-utils library does support the rule format defined by the EU, check [the example](https://github.com/ministero-salute/dcc-utils/blob/master/examples/check_rules_from_api.js) provided. 

@@ -40,6 +40,32 @@ When true, validatorServer returns holder details in the response:
 
 ![](https://github.com/lucadentella/raspberry-dgc/raw/main/images/holder-details.png)
 
+**How can I get the detailed information about the result?**
+
+In `app.js` set this constant to **true**:
+
+    const ADD_DETAILED_MESSAGE = true;
+	
+When true, validatorServer returns detailed information about the scan result:
+
+![](https://github.com/lucadentella/raspberry-dgc/raw/main/images/scan-details.png)
+
+**How can I ask for "Super DGC" scan?**
+
+"Super DGC" means a green pass issued for vaccine or recovery only (not after a Covid test).
+
+In the query string, add `scanMode=2G`:
+
+![](https://github.com/lucadentella/raspberry-dgc/raw/main/images/scan-mode.png)
+
+**How can I change the update frequency?**
+
+In `app.js` change the default schedule - every 1 hour (in a cron-like form):
+
+    cron.schedule('0 * * * *', async () => {
+
+You can use [Crontab Generator](https://crontab-generator.org/) to obtain the correct syntax.
+
 **How can I use test DGCs?**
 
 This Github repository ([dgc-testdata](https://github.com/eu-digital-green-certificates/dgc-testdata)) collects test data of different member states. 
