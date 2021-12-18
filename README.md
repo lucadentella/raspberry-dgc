@@ -9,18 +9,20 @@ Raspberry appliance to verify EU [Digital Green Certificates](https://ec.europa.
 
 ## What's new :tada:
 
+ - 18/12/2021, new major version, with **official SDK**, **Super DGC** and **scheduled updates**
  - 07/11/2021, check italian **UVCI blacklist**  
  - 07/11/2021, accept Sputnik-V for **San Marino** citizens
 
 ## Features :trophy:
 
+ - Fully **compliant to italian law** (Offical SDK used)
  - Performs a **complete** validation (signature and business rules)
  - Automatically **downloads** the list of valid keys and rules
  - Supports the **official** Raspberry Pi camera
  - Has a **modular** architecture (client/server)
  - Can run on **any** recent Raspberry Pi boards
  - Can **display** the video captured by the camera
- - A browser-based client is also included
+ - A **browser-based** client is also included
 
 ![](https://github.com/lucadentella/raspberry-dgc/raw/main/images/architecture.png)
 
