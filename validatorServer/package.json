@@ -8,7 +8,10 @@
   },
   "author": "Luca Dentella",
   "dependencies": {
-    "verificac19-sdk": "=0.5.1",
-	"node-cron": "^3.0.0"
+    "better-sqlite3": "^7.5.0",
+    "fs-extra": "^10.0.0",
+    "lowdb": "^1.0.0",
+    "node-cron": "^3.0.0",
+    "verificac19-sdk": ">=0.8.0"
   }
 }
