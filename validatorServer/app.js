@@ -1,23 +1,41 @@
 const {Service} = require('verificac19-sdk');
 const {Certificate} = require('verificac19-sdk');
 const {Validator} = require('verificac19-sdk');
+/* lowdb crl */
+// const crlManager = require('./lowdbcrlmanager');
+/* sqlite crl */
+const crlManager = require('./sqlitecrlmanager');
 const http = require('http');
 const url = require('url');
 const cron = require('node-cron');
+const fs = require('fs-extra');
 
 const version = "1.0.0";
 const port = 3000;
+
+/*
+from ?scanMode on get
+const scanMode = '2G';
+const scanMode = '3G';
+const scanMode = 'BOOSTER';
+const scanMode = 'RSA';
+const scanMode = 'WORK';
+const scanMode = 'ENTRYIT';
+*/
 
 const ADD_HOLDER_DETAILS = true;
 const ADD_DETAILED_MESSAGE = true;
 
 const update = (async () => {
-
 	process.stdout.write("Updating keys, settings and blacklist...");
-	await Service.updateAll();
+	console.log('Empty .cache');
+	await fs.emptyDir(process.env.VC19_CACHE_FOLDER);
+	await Service.updateAll(crlManager);
+	await Service.cleanCRL();
+	console.log('Updating CRL...');
+	await Service.updateCRL();
 	process.stdout.write(" done!\n");
 });
-
 const main = (async () => {
 
 	process.stdout.write("validatorServer " + version + "\n\n");
@@ -77,8 +95,13 @@ const main = (async () => {
 
 			// validate DGC
 			let validationResult;
-			if(scanMode == "2G") validationResult = await Validator.validate(dcc, Validator.mode.SUPER_DGP); 
-			else validationResult = await Validator.validate(dcc); 
+			if(scanMode == "2G") validationResult = await Validator.validate(dcc, Validator.mode.SUPER_DGP);
+			if(scanMode == "3G") validationResult = await Validator.validate(dcc, Validator.mode.NORMAL_DGP);
+			if(scanMode == "BOOSTER") validationResult = await Validator.validate(dcc, Validator.mode.BOOSTER_DGP);
+			if(scanMode == "RSA") validationResult = await Validator.validate(dcc, Validator.mode.VISITORS_RSA_DGP);
+			if(scanMode == "WORK") validationResult = await Validator.validate(dcc, Validator.mode.WORK_DGP);
+			if(scanMode == "ENTRYIT") validationResult = await Validator.validate(dcc, Validator.mode.ENTRY_IT_DGP);
+			else validationResult = await Validator.validate(dcc);
 			
 			// add detailed message if required
 			let result = validationResult.code;
